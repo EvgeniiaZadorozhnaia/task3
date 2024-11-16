@@ -4,6 +4,7 @@ import Menu from "./Menu.js";
 import chalk from "chalk";
 import GeneratorKey from "./GeneratorKey.js";
 import GeneratorHMAC from "./GeneratorHMAC.js";
+import Help from './Help.js';
 
 class Player {
   constructor(name) {
@@ -31,6 +32,15 @@ class User extends Player {
   chooseDice(dices) {
     console.log(chalk.yellow("Choose your dice:"));
     const index = this.chooses(`${Menu.getMenu(dices)}\n`);
+    if (index === "X") {
+      console.log("Goodbye!");
+      process.exit();
+    }
+
+    if (index === "?") {
+      console.log(Help.getHelp());
+      process.exit();
+    }
     this.dice = dices[index];
     console.log(`Your selection: ${index}`);
     console.log(`You choose the [${this.dice}] dice.`);
@@ -39,6 +49,15 @@ class User extends Player {
   throwDice() {
     console.log(chalk.yellow("Add your number modulo 6."));
     const userFace = this.chooses(`${Menu.getMenu([0, 5])}\n`);
+    if (userFace === "X") {
+      console.log("Goodbye!");
+      process.exit();
+    }
+
+    if (userFace === "?") {
+      console.log(Help.getHelp());
+      process.exit();
+    }
     return userFace;
   }
 }

@@ -1,3 +1,4 @@
+import Help from './Help.js';
 import { User } from "./Player.js";
 import { Computer } from "./Player.js";
 import chalk from "chalk";
@@ -21,14 +22,14 @@ class Game {
     }
 
     if (userChoise === "?") {
-      console.log("Sorry. I couldn't implement this.");
+      console.log(Help.getHelp());
       process.exit();
     }
 
     console.log(`Your selection: ${userChoise}`);
     console.log(`My selection: ${computerChoice}`);
 
-    if (Number(userChoise) !== Number(computerChoice)) {
+    if (Number(userChoise) !== parseInt(computerChoice, 10)) {
       this.computer.chooseDice(this.dices);
       console.log(
         `I make the first move and choose the [${this.computer.dice}] dice.`
@@ -41,7 +42,7 @@ class Game {
       const userThrow = this.throw(this.user);
       console.log(chalk.blue.bold(`Your throw is ${userThrow}.`));
       this.end(userThrow, compThrow);
-    } else if (Number(userChoise) === Number(computerChoice)) {
+    } else {
       console.log(`You guessed right and make the first move.`);
       this.user.chooseDice(this.dices);
       this.computer.chooseDice(this.dices);
